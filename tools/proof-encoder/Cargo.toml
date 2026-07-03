@@ -1,0 +1,20 @@
+[package]
+name = "proof-encoder"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+# Off-chain helper: converts snarkjs (BN254) proof.json / verification_key.json
+# into the uncompressed-hex JSON the Soroban groth16-verifier CLI expects
+# (BN254G1Affine = 64 bytes, BN254G2Affine = 128 bytes, big-endian uncompressed).
+
+[[bin]]
+name = "proof-encoder"
+path = "src/main.rs"
+
+[dependencies]
+ark-bn254 = "0.4.0"
+ark-ff = "0.4.2"
+ark-serialize = "0.4.2"
+serde_json = "1"
+hex = "0.4"

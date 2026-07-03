@@ -1,0 +1,20 @@
+{
+  "name": "@aperture/circuits",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Aperture circuits + circuit test harness (BN254)",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@zk-kit/poseidon-cipher": "0.3.2",
+    "circomlibjs": "^0.1.7",
+    "poseidon-lite": "^0.3.0",
+    "snarkjs": "^0.7.5",
+    "vitest": "^2.1.0"
+  },
+  "dependencies": {
+    "@zk-kit/circuits": "0.4.0"
+  }
+}

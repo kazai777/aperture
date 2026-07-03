@@ -1,0 +1,30 @@
+{
+  "name": "@aperture/app",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"no app tests\" && exit 0",
+    "artifacts": "mkdir -p public/circuits && cp ../circuits/disclosure/build/disclosure_js/disclosure.wasm ../circuits/disclosure/build/disclosure_final.zkey ../circuits/disclosure/build/verification_key.json public/circuits/"
+  },
+  "dependencies": {
+    "@aperture/sdk": "*",
+    "@stellar/stellar-sdk": "^14.5.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "snarkjs": "^0.7.5",
+    "verifier-client": "*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "typescript": "^5.6.0",
+    "vite": "^5.4.0",
+    "vite-plugin-node-polyfills": "^0.23.0"
+  }
+}

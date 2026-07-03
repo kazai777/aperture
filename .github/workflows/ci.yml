@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  sdk-and-app:
+    name: SDK + App (Node)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm install
+      # Build first: the app typechecks against @aperture/sdk's emitted d.ts.
+      - name: Build
+        run: npm run build
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Test
+        run: npm run test
+
+  circuits:
+    name: Circuits + crypto tests (BN254)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: circuits
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install circom (prebuilt)
+        run: |
+          curl -L https://github.com/iden3/circom/releases/download/v2.1.9/circom-linux-amd64 -o /usr/local/bin/circom
+          chmod +x /usr/local/bin/circom
+          circom --version
+      - run: npm install
+      - name: Compile circuits
+        run: bash compile.sh
+      - name: Crypto tests (per-constraint matched pairs + full circuit + #6 round-trip/negatives)
+        run: npx vitest run
+
+  contracts:
+    name: Soroban verifier (Rust)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: contracts/groth16-verifier
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust + wasm target
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup target add wasm32v1-none
+      - name: Install stellar-cli
+        run: cargo install --locked stellar-cli || true
+      - name: Unit tests (off-chain verifier sanity)
+        run: cargo test
+      - name: Build wasm
+        run: |
+          rustup run stable stellar contract build || cargo build --target wasm32v1-none --release
+
+  encoder:
+    name: proof-encoder (Rust)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/proof-encoder
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust
+        run: rustup toolchain install stable --profile minimal
+      - name: Build
+        run: cargo build --release
