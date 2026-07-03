@@ -1,0 +1,19 @@
+{
+  "name": "aperture",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Aperture — compliant selective-disclosure ZK primitive for Stellar/Soroban",
+  "workspaces": [
+    "sdk",
+    "app",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace @aperture/sdk && npm run build --workspace @aperture/app",
+    "typecheck": "npm run build --workspace @aperture/sdk && npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

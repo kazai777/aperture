@@ -1,0 +1,51 @@
+# --- Secrets / keys (NEVER commit) ---
+.env
+.env.*
+!.env.example
+*.secret
+**/identity/*.toml
+
+# --- Trusted-setup artifacts (large / sensitive) ---
+# Powers-of-tau and circuit-specific zkeys are not committed.
+*.ptau
+*.zkey
+*.wtns
+
+# --- Node ---
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+
+# --- Rust / Soroban ---
+target/
+**/target/
+
+# --- Reference clones (read-only substrate, not part of our source) ---
+vendor/
+
+# --- Circom build outputs ---
+*_js/
+*.r1cs
+*.sym
+
+# --- Generated encoder args (derived from proofs) ---
+tools/proof-encoder/out/
+
+# --- Misc ---
+.DS_Store
+*.log
+
+# Circuit build artifacts
+circuits/**/build_cipher/
+circuits/disclosure/build/
+
+circuits/test/circuits/*_js/
+tools/proof-encoder/out*/
+
+# Demo runtime artifacts (regenerate via circuits/disclosure/setup_prove.sh + copy)
+app/public/circuits/
+
+app/hero-slice.png
+app/personas.png
+app/*.png
