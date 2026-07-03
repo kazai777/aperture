@@ -132,10 +132,10 @@ walkthrough) drive the real flow headlessly and assert the results.
 
 ---
 
-## 7. What's real vs demo-grade (so you can speak to it)
+## 7. What's real vs demo-grade
 
 - **Real:** the proof, the on-chain verification (deployed Soroban contract on
   testnet), the auditor decrypt, the sanctioned-actor rejection.
-- **Demo-grade (stated plainly):** local trusted setup; BN254 (~100-bit) with
+- **Demo-grade:** local trusted setup; BN254 (~100-bit) with
   BLS12-381 as the identical-logic upgrade; pool/ASP tree depth 10 (a circuit
-  parameter); the throwaway signing key. See `docs/PITCH.md` §8.
+  parameter); the throwaway signing key.
